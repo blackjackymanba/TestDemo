@@ -1,0 +1,8 @@
+I:\Project\Demo\TestDemo\AutoFac\obj\Debug\AutoFac.csprojResolveAssemblyReference.cache
+I:\Project\Demo\TestDemo\AutoFac\bin\Debug\AutoFac.exe
+I:\Project\Demo\TestDemo\AutoFac\bin\Debug\AutoFac.pdb
+I:\Project\Demo\TestDemo\AutoFac\bin\Debug\Autofac.Configuration.dll
+I:\Project\Demo\TestDemo\AutoFac\bin\Debug\Autofac.dll
+I:\Project\Demo\TestDemo\AutoFac\obj\Debug\AutoFac.exe
+I:\Project\Demo\TestDemo\AutoFac\obj\Debug\AutoFac.pdb
+I:\Project\Demo\TestDemo\AutoFac\bin\Debug\AutoFac.exe.config

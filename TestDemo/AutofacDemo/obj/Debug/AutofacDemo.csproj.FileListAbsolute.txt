@@ -1,0 +1,7 @@
+I:\Project\Demo\TestDemo\AutofacDemo\bin\Debug\AutofacDemo.exe.config
+I:\Project\Demo\TestDemo\AutofacDemo\bin\Debug\AutofacDemo.exe
+I:\Project\Demo\TestDemo\AutofacDemo\bin\Debug\AutofacDemo.pdb
+I:\Project\Demo\TestDemo\AutofacDemo\bin\Debug\Autofac.Configuration.dll
+I:\Project\Demo\TestDemo\AutofacDemo\bin\Debug\Autofac.dll
+I:\Project\Demo\TestDemo\AutofacDemo\obj\Debug\AutofacDemo.exe
+I:\Project\Demo\TestDemo\AutofacDemo\obj\Debug\AutofacDemo.pdb

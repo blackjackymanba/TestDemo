@@ -1,0 +1,10 @@
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\TaskService.exe.config
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\TaskService.exe
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\TaskService.pdb
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\NLog.dll
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\NLog.xml
+I:\Project\Demo\TestDemo\TaskService\obj\Debug\TaskService.exe
+I:\Project\Demo\TestDemo\TaskService\obj\Debug\TaskService.pdb
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\MySql.Data.dll
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\Newtonsoft.Json.dll
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\Newtonsoft.Json.xml

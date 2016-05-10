@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E7B6BFF8-FB52-4C4F-BD73-08DB98F4C2CE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TaskService</RootNamespace>
+    <AssemblyName>TaskService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net40\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.3\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Callers\ConnectorCaller.cs" />
+    <Compile Include="Callers\ICaller.cs" />
+    <Compile Include="Callers\StateGridConnectorCaller.cs" />
+    <Compile Include="Callers\WechatPayCaller.cs" />
+    <Compile Include="DataStructure\BMember.cs" />
+    <Compile Include="DataStructure\CMember.cs" />
+    <Compile Include="DataStructure\FIOrder.cs" />
+    <Compile Include="DataStructure\FIPaymentOrder.cs" />
+    <Compile Include="DataStructure\FOOrder.cs" />
+    <Compile Include="DataStructure\Platform.cs" />
+    <Compile Include="DataStructure\PlatformSetting.cs" />
+    <Compile Include="DataStructure\Refund.cs" />
+    <Compile Include="DataStructure\SGAccount.cs" />
+    <Compile Include="DataStructure\SGTrade.cs" />
+    <Compile Include="DataStructure\Terminal.cs" />
+    <Compile Include="Data\DailyReconciliationDataAccess.cs" />
+    <Compile Include="Data\DataAccess.cs" />
+    <Compile Include="Data\DbUtil.cs" />
+    <Compile Include="Data\PayBillRetryDataAccess.cs" />
+    <Compile Include="Data\RefundDataAccess.cs" />
+    <Compile Include="Data\RefundOrderAccess.cs" />
+    <Compile Include="Data\TestDataAccess.cs" />
+    <Compile Include="IOObjectType\GetAmountInput.cs" />
+    <Compile Include="IOObjectType\GetAmountOutput.cs" />
+    <Compile Include="IOObjectType\GetBillHistoryByOpenIdInput.cs" />
+    <Compile Include="IOObjectType\GetBillHistoryByOpenIdOutput.cs" />
+    <Compile Include="IOObjectType\GetBillHistoryInput.cs" />
+    <Compile Include="IOObjectType\GetBillHistoryOutput.cs" />
+    <Compile Include="IOObjectType\GetPrepayOrderInput.cs" />
+    <Compile Include="IOObjectType\GetPrepayOrderOutput .cs" />
+    <Compile Include="IOObjectType\GetUnpaidBillInput.cs" />
+    <Compile Include="IOObjectType\GetUnpaidBillOutput.cs" />
+    <Compile Include="IOObjectType\InputObjectType.cs" />
+    <Compile Include="IOObjectType\IObjectType.cs" />
+    <Compile Include="IOObjectType\ObjectType.cs" />
+    <Compile Include="IOObjectType\OutputObjectType.cs" />
+    <Compile Include="IOObjectType\PaybackInput.cs" />
+    <Compile Include="IOObjectType\PaybackOutput.cs" />
+    <Compile Include="IOObjectType\PayBillInput.cs" />
+    <Compile Include="IOObjectType\PayBillOutput.cs" />
+    <Compile Include="IOObjectType\PayBInput.cs" />
+    <Compile Include="IOObjectType\PayBOutput.cs" />
+    <Compile Include="IOObjectType\PaymentOrder.cs" />
+    <Compile Include="IOObjectType\RecFileInput.cs" />
+    <Compile Include="IOObjectType\RecFileOutput.cs" />
+    <Compile Include="IOObjectType\ReconciliationInput.cs" />
+    <Compile Include="IOObjectType\ReconciliationOutput.cs" />
+    <Compile Include="IOObjectType\SGOutputObjectType.cs" />
+    <Compile Include="Lib\HttpService.cs" />
+    <Compile Include="Lib\SHA1Encoder.cs" />
+    <Compile Include="Lib\WxApi.cs" />
+    <Compile Include="Lib\XmlTextEncoder.cs" />
+    <Compile Include="Nlog.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Nlog.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
