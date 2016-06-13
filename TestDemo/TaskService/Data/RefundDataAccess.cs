@@ -24,7 +24,7 @@ namespace GPMTaskService.Data
         {
             List<SGTrade> list = null;
             var sql = @"SELECT ORDER_ID,PAYSGACCOUNT,FOUNDINORDERID,CHARGEORGNO,STATUS,SOURCEPLATFORM,TYPE,AMOUNT,PENALTY FROM STATEGRID.PAYMENT_ORDER 
-                            where STATUS=23  order by CREATEDATE desc";
+                            where STATUS=23 and 1=2  order by CREATEDATE desc";
            
             var dr = dbTrans.ExecuteReader(sql);
             if (dr.HasRows)

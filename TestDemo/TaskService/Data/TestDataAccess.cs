@@ -5,9 +5,13 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using Dapper;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using TaskService.IOObjectType;
 
 namespace GPMTaskService.Data
 {
@@ -23,7 +27,6 @@ namespace GPMTaskService.Data
         {
             dbTrans = _dbTrans;
         }
-
         public void Test()
         {
 
@@ -31,8 +34,15 @@ namespace GPMTaskService.Data
             nlog.Error("sssss");
             //nlog.Error("test");
 
-            var fiOrder = GetFIOrder(520);
-            var pdate = fiOrder.PayDate.ToString();
+
+            //var list = new RefundDataAccess().GetRefundList();
+            //foreach (var item in list)
+            //{
+
+            //}
+
+            //var fiOrder = GetFIOrder(520);
+            //var pdate = fiOrder.PayDate.ToString();
 
             //RefundOrderAccess rdal = new RefundOrderAccess(dbTrans);
 
@@ -42,9 +52,170 @@ namespace GPMTaskService.Data
 
             //refundorder();
 
-           // refund();
+            // refund();
+
+            //dapperTest();
+            var list = GetSGTrades2("1315022839", "zjdwwxgzh");
+            //var list2 = GetBookList();
+            var a = "";
         }
 
+        private void dapperTest()
+        {
+            var ss = "";
+            string cmdText = @"SELECT ORDER_ID,FOUNDINORDERID,CHARGEORGNO,CREATEDATE,TRADEORDERKEY FROM payment_order where ORDER_ID=300";
+            var list = new List<TestDapper>();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["STATEGRID"].ConnectionString))
+            {
+                connection.Open();
+                list = connection.Query<TestDapper>(cmdText.ToString(), null).ToList();
+            }
+            ss = "";
+            //var list = new List<TestDapper>();
+            //using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["STATEGRID"].ConnectionString))
+            //{
+            //    conn.Open();
+            //    //开始事务
+            //    IDbTransaction transaction = conn.BeginTransaction();
+            //    try
+            //    {
+            //        string query = @"UPDATE payment_order WITH (UPDLOCK) SET CREATEDATE = GETDATE() WHERE ORDER_ID=300";
+
+            //         conn.Execute(query,null,transaction, null, null);
+            //        //list = conn.Query<TestDapper>(query.ToString(), null,transaction).ToList();
+            //        var aa = "dd";
+
+            //        //提交事务
+            //        transaction.Commit();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        //出现异常，事务Rollback
+            //        transaction.Rollback();
+            //        throw new Exception(ex.Message);
+            //    }
+            //}
+
+        }
+
+        public List<SGTrade> GetSGTrades(string accountNo, string PlatformId)
+        {
+            List<SGTrade> pList = null;
+            try
+            {
+                
+                
+
+                using (var t = new SqlConnection(ConfigurationManager.ConnectionStrings["STATEGRID"].ConnectionString))
+                {
+                    var res = t.Query<SGTrade, SGAccount, SGTrade>(@"SELECT TA.ORDER_ID ID
+                                                           ,TA.[CHARGEORGNO] ChargeOrganization
+                                                           ,TA.[STATUS] Status
+                                                           ,TA.[TYPE]  Type
+                                                           ,TA.[AMOUNT] Amount
+                                                           ,TA.TRADEORDERKEY
+                                                           ,TA.[PENALTY] Penalty
+                                                           ,TC.NAME Name
+                                                           ,TC.ADDRESS Address
+                                                            FROM STATEGRID.dbo.PAYMENT_ORDER TA INNER JOIN STATEGRID.dbo.ACCOUNT TC ON TC.ACCOUNTID = TA.PAYSGACCOUNT
+                                                            WHERE TA.SOURCEPLATFORM = @pID AND TA.PAYSGACCOUNT = @acctNo;",
+                                                            (sgTrade, sgAccount) => {
+                                                                sgTrade.SGUserAccount = sgAccount;
+                                                                return sgTrade;
+                                                            },
+                                                            new { pID = PlatformId,
+                                                                acctNo = accountNo
+                                                            }, splitOn: "Name").ToList();
+
+                    pList = res;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                pList = null;
+                nlog.Fatal("Fail to load SGTrades info for :{0}", accountNo);
+            }
+            return pList;
+        }
+        public List<SGTrade> GetSGTrades2(string accountNo, string PlatformId)
+        {
+            List<SGTrade> pList = null;
+            try
+            {
+                using (var t = new SqlConnection(ConfigurationManager.ConnectionStrings["STATEGRID"].ConnectionString))
+                {
+                    var res = t.Query<SGTrade, SGAccount, Platform, FIOrder, SGTrade >(@"SELECT TA.ORDER_ID ID
+                                                           ,TA.[CHARGEORGNO] ChargeOrganization
+                                                           ,TA.[STATUS] Status
+                                                           ,TA.[TYPE]  Type
+                                                           ,TA.[AMOUNT] Amount
+                                                           ,TA.TRADEORDERKEY
+                                                           ,TA.[PENALTY] Penalty
+                                                           ,TC.NAME Name
+                                                           ,TC.ADDRESS Address
+                                                           ,td.PLATFORM_ID PlatformId
+                                                            ,td.CHINESENAME  Name
+                                                              ,tf.ORDER_ID OutTradeID
+                                                              ,tf.CREATEDATE PayDate
+                                                            FROM STATEGRID.dbo.PAYMENT_ORDER TA INNER JOIN STATEGRID.dbo.ACCOUNT TC ON TC.ACCOUNTID = TA.PAYSGACCOUNT
+inner join INFRASTRUCTURE.dbo.PLATFORM  td on TA.SOURCEPLATFORM =td.PLATFORM_ID
+      inner join    FUNDIN.dbo.TRADE_ORDER tf on tf.ORDER_ID= ta.FOUNDINORDERID                                                 
+WHERE TA.SOURCEPLATFORM = @pID AND TA.PAYSGACCOUNT = @acctNo;",
+                                                            (sgTrade, sgAccount, pf,fi) =>
+                                                            {
+                                                                sgTrade.SGUserAccount = sgAccount; sgTrade.SourcePlatform = pf;sgTrade.FoundInOrder = fi;
+                                                                return sgTrade;
+                                                            },
+                                                            new { pID = PlatformId, acctNo = accountNo },
+                                                            splitOn: "Name,PlatformId,OutTradeID"
+                                                            ).ToList();
+
+                    pList = res;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                pList = null;
+                nlog.Fatal("Fail to load SGTrades info for :{0}", accountNo);
+            }
+            return pList;
+        }
+
+        public List<Book> GetBookList()
+        {
+            List<Book> bList = null;
+            try
+            {
+                using (var t = new SqlConnection(ConfigurationManager.ConnectionStrings["STATEGRIDLOCAL"].ConnectionString+""))
+                {
+                    var res = t.Query<Book, BookComment, BookPic, Book>(@"select 
+                                                                         a.ID,a.Name,a.Description,
+                                                                         b.Name,b.ID,b.BookId,b.Comment,
+                                                                         c.BookID,c.ID,c.Name,c.PicDesc 
+                                                                         from [dbo].[Book] 
+                                                                         a inner join [dbo].[BookComment] b on a.id=b.bookid
+                                                                         inner join [dbo].[BookPic] c on a.id =c.bookid",
+                                                            (book, bookcomment, bookpic) =>
+                                                            {
+                                                                book.bookComment = bookcomment;
+                                                                book.bookPic = bookpic;
+                                                                return book;
+                                                            },
+                                                            splitOn: "Name,BookID"
+                                                            ).ToList();
+
+                    bList = res;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                bList = null;
+            }
+            return bList;
+        }
         public void refundorder()
         {
             nlog = new Nlog("RefundOrder");
@@ -252,5 +423,13 @@ namespace GPMTaskService.Data
             dr.Close();
             return model;
         }
+    }
+    public class TestDapper
+    {
+        public int ORDER_ID;
+        public int FOUNDINORDERID;
+        public string CHARGEORGNO;
+        public DateTime CREATEDATE;
+        public byte[] TRADEORDERKEY;
     }
 }

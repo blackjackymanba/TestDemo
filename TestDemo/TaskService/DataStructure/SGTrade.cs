@@ -8,6 +8,8 @@ namespace GPMGateway.Common.DataStructure
 
         public Guid Key;
 
+        public string AccountID;
+
         public SGAccount SGUserAccount;
 
         public string ChargeOrganization;

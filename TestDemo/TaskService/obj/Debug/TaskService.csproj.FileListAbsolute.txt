@@ -8,3 +8,7 @@ I:\Project\Demo\TestDemo\TaskService\obj\Debug\TaskService.pdb
 I:\Project\Demo\TestDemo\TaskService\bin\Debug\MySql.Data.dll
 I:\Project\Demo\TestDemo\TaskService\bin\Debug\Newtonsoft.Json.dll
 I:\Project\Demo\TestDemo\TaskService\bin\Debug\Newtonsoft.Json.xml
+I:\Project\Demo\TestDemo\TaskService\obj\Debug\TaskService.csprojResolveAssemblyReference.cache
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\Dapper.dll
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\Dapper.pdb
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\Dapper.xml

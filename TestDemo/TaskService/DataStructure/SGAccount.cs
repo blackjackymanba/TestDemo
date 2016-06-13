@@ -11,8 +11,9 @@ namespace GPMGateway.Common.DataStructure
         public SGAccount(string accountNo)
         {
             ID = accountNo;
+            AccountID = accountNo;
         }
-
+        public string AccountID;
         public string ID;
 
         public string Name;

@@ -35,6 +35,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net40\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +89,9 @@
     <Compile Include="Data\RefundDataAccess.cs" />
     <Compile Include="Data\RefundOrderAccess.cs" />
     <Compile Include="Data\TestDataAccess.cs" />
+    <Compile Include="IOObjectType\Book.cs" />
+    <Compile Include="IOObjectType\BookComment.cs" />
+    <Compile Include="IOObjectType\BookPic.cs" />
     <Compile Include="IOObjectType\GetAmountInput.cs" />
     <Compile Include="IOObjectType\GetAmountOutput.cs" />
     <Compile Include="IOObjectType\GetBillHistoryByOpenIdInput.cs" />
