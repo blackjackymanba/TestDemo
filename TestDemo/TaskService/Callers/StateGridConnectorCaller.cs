@@ -23,7 +23,7 @@ namespace GPMTaskService.Callers
             _caller = new StateGridConnectorCaller();
         }
 
-        private StateGridConnectorCaller()
+        public StateGridConnectorCaller()
         {
         }
 

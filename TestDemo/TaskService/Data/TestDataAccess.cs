@@ -12,9 +12,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using TaskService.IOObjectType;
+using GPMGateway.Common.IOObjectType;
+using TaskService.Callers;
+using TaskService;
 
 namespace GPMTaskService.Data
 {
+    public enum dapperEnum {
+        a=11,
+        b=21,
+        c=22
+
+    }
+    public class testEnum
+    {
+
+
+    }
     public class TestDataAccess
     {
         private DbTransContext dbTrans;
@@ -34,8 +48,22 @@ namespace GPMTaskService.Data
             nlog.Error("sssss");
             //nlog.Error("test");
 
+            var bb = Program._aa;
 
-            //var list = new RefundDataAccess().GetRefundList();
+            var cc = Program._dicPlatForm;
+            var dd = Program.tc;
+            var ddf = Program.tclist;
+            var xx = Program.bb();
+
+            //var aa = new DBHelper("SGConnection");
+            //var bb=  aa.FundIn.GetFIPaymentOrder();
+
+            dapperTest();
+
+
+
+            var list2 = new RefundDataAccess().GetRefundList();
+            var bc = "";
             //foreach (var item in list)
             //{
 
@@ -55,6 +83,16 @@ namespace GPMTaskService.Data
             // refund();
 
             //dapperTest();
+            var input = new GetAmountInput();
+            input.AccountNo = "123";
+            input.ChargeOrganizationNo = "456";
+            var ab = new StateGridConnectorCaller();
+            var ss = ab.GetAmount(input, "", Guid.NewGuid());
+
+
+
+            var aaa = GetSettingForPlatform();
+
             var list = GetSGTrades2("1315022839", "zjdwwxgzh");
             //var list2 = GetBookList();
             var a = "";
@@ -63,7 +101,7 @@ namespace GPMTaskService.Data
         private void dapperTest()
         {
             var ss = "";
-            string cmdText = @"SELECT ORDER_ID,FOUNDINORDERID,CHARGEORGNO,CREATEDATE,TRADEORDERKEY FROM payment_order where ORDER_ID=300";
+            string cmdText = @"SELECT  [ORDER_ID],[CREATEDATE],STATUS FROM [STATEGRID].[STATEGRID].[PAYMENT_ORDER] WHERE ORDER_ID=342";
             var list = new List<TestDapper>();
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["STATEGRID"].ConnectionString))
             {
@@ -97,7 +135,25 @@ namespace GPMTaskService.Data
             //}
 
         }
+        public string GetSettingForPlatform()
+        {
+            using (var t = new SqlConnection(ConfigurationManager.ConnectionStrings["STATEGRID"].ConnectionString))
+            {
+                try
+                {
+                    var res = t.Query<PlatformSetting>("SELECT SETTINGSVALUE SettingValue FROM INFRASTRUCTURE.[dbo].[PLATFORM_SETTINGS] WHERE PLATFORMID=@pid AND SETTINGSNAME=@sName;", new { pid = 1, sName = "UnifiedOrderUseSub" });
+                    var bb = "";
+                    var plaSet = res.First();
+                    return plaSet.SettingValue;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
 
+
+            }
+        }
         public List<SGTrade> GetSGTrades(string accountNo, string PlatformId)
         {
             List<SGTrade> pList = null;
@@ -207,12 +263,12 @@ WHERE TA.SOURCEPLATFORM = @pID AND TA.PAYSGACCOUNT = @acctNo;",
                                                             ).ToList();
 
                     bList = res;
-
+                    
                 }
             }
             catch (Exception ex)
             {
-                bList = null;
+                nlog.Error(ex.ToString());
             }
             return bList;
         }
@@ -431,5 +487,6 @@ WHERE TA.SOURCEPLATFORM = @pID AND TA.PAYSGACCOUNT = @acctNo;",
         public string CHARGEORGNO;
         public DateTime CREATEDATE;
         public byte[] TRADEORDERKEY;
+        public dapperEnum STATUS;
     }
 }

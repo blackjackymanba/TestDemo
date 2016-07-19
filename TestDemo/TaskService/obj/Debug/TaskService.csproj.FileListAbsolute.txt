@@ -12,3 +12,5 @@ I:\Project\Demo\TestDemo\TaskService\obj\Debug\TaskService.csprojResolveAssembly
 I:\Project\Demo\TestDemo\TaskService\bin\Debug\Dapper.dll
 I:\Project\Demo\TestDemo\TaskService\bin\Debug\Dapper.pdb
 I:\Project\Demo\TestDemo\TaskService\bin\Debug\Dapper.xml
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\FluentConsole.dll
+I:\Project\Demo\TestDemo\TaskService\bin\Debug\FluentConsole.xml
